@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const util = require('util');
+const db = require('../utils/database');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+// Promesas nativas
+const query = util.promisify(db.query).bind(db);
+
+/* Obtener listado de usuarios. */
+router.get('/', async (req, res, next) => {
+  const result = await query('SELECT * FROM usuario');
+  res.json(result);
 });
+
 
 module.exports = router;
