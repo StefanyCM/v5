@@ -10,6 +10,9 @@ var productsRouter = require('./routes/products');
 var pedidoRouter = require('./routes/pedido');
 var facturaRouter = require('./routes/factura');
 var bodyParser = require('body-parser');
+var categoriaRouter = require('./routes/categoria');
+var marcaRouter = require('./routes/marca');
+var proveedorRouter = require('./routes/proveedor');
 
 var app = express();
 
@@ -41,7 +44,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/pedido', pedidoRouter);
-app.use('/factura', facturaRouter);
+app.use('/categoria', categoriaRouter);
+app.use('/marca', marcaRouter);
+app.use('/proveedor', proveedorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
