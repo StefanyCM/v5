@@ -93,7 +93,9 @@ router.get('/:id', async (req, res, next) => {
 
     let join = await joinjs.default.map(result, _pedidoMap, 'pedidoMap', 'pedido_')
 
-    res.json(join);
+   
+      
+    res.render('admin/pedidos', { pedidos: join, layout: 'admin' })
 
   } catch (error) {
     console.log('Error =>', error);

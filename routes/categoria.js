@@ -9,7 +9,8 @@ const query = util.promisify(db.query).bind(db);
 /* Obtener listado de cateogiras. */
 router.get('/', async (req, res, next) => {
   const result = await query('SELECT * FROM categoria');
-  res.json(result);
+  
+  res.render('admin/categorias', { categorias: result, layout: 'admin' })
 });
 
 /* Obtener un categoria. */

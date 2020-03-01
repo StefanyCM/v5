@@ -9,7 +9,7 @@ const query = util.promisify(db.query).bind(db);
 /* Obtener listado de marca. */
 router.get('/', async (req, res, next) => {
   const result = await query('SELECT * FROM marca');
-  res.json(result);
+  res.render('admin/marcas', { marca: result, layout: 'admin' })
 });
 
 /* Obtener un marca. */
