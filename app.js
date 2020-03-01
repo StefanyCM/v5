@@ -41,12 +41,12 @@ app.use(bodyParser.json());
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/products', productsRouter);
-app.use('/pedido', pedidoRouter);
-app.use('/categoria', categoriaRouter);
-app.use('/marca', marcaRouter);
-app.use('/proveedor', proveedorRouter);
+app.use('/admin/usuarios', usersRouter);
+app.use('/admin/productos', productsRouter);
+app.use('/admin/pedidos', pedidoRouter);
+app.use('/admin/categorias', categoriaRouter);
+app.use('/admin/marcas', marcaRouter);
+app.use('/admin/proveedores', proveedorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
