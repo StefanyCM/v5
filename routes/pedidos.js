@@ -104,5 +104,15 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
+/* traer un pedido. */
+router.get('/', async (req, res, next) => {
+  try {
+    const result = await query("SELECT pedido.id_pedido, pedido.total, pedido.completado, pedido.fecha, usuario.nombres, usuario.apellidos FROM pedido INNER JOIN usuario ON pedido.fk_usuario = usuario.id_usuario ORDER BY pedido.fecha ASC");
+   res.render('admin/pedidos', { pedidos: result, layout: 'admin' })
+  } catch (error) {
+    console.log(error);
+  } 
+});
+
 
 module.exports = router;
