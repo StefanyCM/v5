@@ -1,38 +1,58 @@
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Productos</h1>
-            <a href="agregarproducto.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Registrar Producto</a>
-          </div>
-
-
-        </div>
-        <!-- /.container-fluid -->
-
-
-
-      <div class="col-12">
-        <div class="m-portlet m-portlet--full-height ">
-
-          <div class="shop-area mb-all-40">
-            <div class="tab-content">
-              <div id="grid-view" class="tab-pane fade show active">
-                <div id="products" class="row border-hover-effect ">
-                </div>
-              </div>
+<div class="container-fluid">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Productos</h1>
+    <a href="agregarproducto.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-download fa-sm text-white-50"></i> Productos</a>
+  </div>
+</div>
+<div class="col-xl-12">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">-----------</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                aria-describedby="dataTable_info" style="width: 100%;">
+                <thead>
+                  <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Position: activate to sort column ascending" style="width: 193px;">Nombre</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Office: activate to sort column ascending" style="width: 86px;">Descripcion</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Age: activate to sort column ascending" style="width: 33px;">Imagen</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Disponible</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Precio</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Marca</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Categoria</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each productos}}
+                  <tr role="row" class="odd">
+                    <td>{{nombre}} </td>
+                    <td>{{descripcion}}</td>
+                    <td> <img src="{{imagen}}" class="imgFill productImg" height="200" width="200"> </td>
+                    <td>{{disponible}}</td>
+                    <td>{{precio_venta}}</td>
+                    <td>{{marca}}</td>
+                    <td>{{categoria}}</td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-   
-  
-
- 
-
-  
-
- 
+    </div>
+  </div>
+</div>
