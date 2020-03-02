@@ -1,4 +1,17 @@
-.modal-800 {
-    width: 800px;
-    margin: 30px auto;
+#actionsContainer{
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+
+#actiosItems{
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding-left: 2px;
+    padding-right: 2px;
 }

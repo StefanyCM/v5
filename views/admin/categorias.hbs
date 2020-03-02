@@ -20,17 +20,34 @@
                 <thead>
                   <tr role="row">
                     <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 123px;">
+                      aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 20px;">
                       Id</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Position: activate to sort column ascending" style="width: 193px;">Nombre</th>
+                      aria-label="Position: activate to sort column ascending" style="width:80%;">Nombre
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      style="width: 50px;">Acciones</th>
                   </tr>
+
                 </thead>
                 <tbody>
                   {{#each categorias}}
                   <tr role="row" class="odd">
                     <td class="sorting_1">{{id_categoria}}</td>
                     <td>{{nombre}}</td>
+                    <td>
+                      <div id="actionsContainer">
+                        <div id="actiosItems">
+                          <span id="span1"> <a class="nav-link" href="#" onclick="actualizaractionForm({{id_categoria}}, '{{nombre}}')">
+                              <i class="fas fa-fw fa-edit"></i>
+                            </a>
+                          </span>
+                          <span id="span2"><a class="nav-link" href="#" onclick="eliminar({{id_categoria}})">
+                              <i class="fa fa-trash"></i>
+                            </a></span>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
                   {{/each}}
                 </tbody>
@@ -68,7 +85,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="cerrar()">Cancelar</button>
-        <a class="btn btn-primary" href="#" onclick="guardar()">Guardar</a>
+        <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
       </div>
     </div>
   </div>
@@ -76,18 +93,54 @@
 
 <script>
 
-function guardar(){
-  fetch('/admin/categorias', {
-    method: 'POST',
-    body: JSON.stringify({nombre: document.getElementById("cat_nombre").value}),
-    headers:{'Content-Type': 'application/json'}
-  }).then(result=>{
-    console.log(result);
+  function guardar() {
+    fetch('/admin/categorias', {
+      method: 'POST',
+      body: JSON.stringify({ nombre: document.getElementById("cat_nombre").value }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+      console.log(result);
       $('#CategoryModal').modal('hide');
-  }).catch(err => {
-    console.log(err);
-  });
-}
+        location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+  function actualizaractionForm(id, nombre) {
+    $('#CategoryModal').modal('show');
+    document.getElementById('exampleModalLabel').innerHTML = 'Editar categoría';
+    document.getElementById("cat_nombre").value = nombre;
+    document.getElementById("actionForm").setAttribute( "onClick", `javascript: actualizar(${id});` );
+  }
+
+
+
+  function actualizar(id) {
+    fetch(`/admin/categorias/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ nombre: document.getElementById("cat_nombre").value }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+        $('#CategoryModal').modal('hide');
+        location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+
+
+  function eliminar(id) {
+   fetch(`/admin/categorias/${id}`, {
+      method: 'DELETE'
+    }).then(result => {
+      console.log(result);
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    })
+  }
 
 
 </script>

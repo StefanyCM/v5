@@ -27,7 +27,7 @@ router.get('/:id', async (req, res, next) => {
 
 /* Registrar categoria. */
 router.post('/', async (req, res, next) => {
-  console.log(req.body)
+  console.log("AQUI ES POST")
   var { nombre } = req.body;
   try {
     const result = await query("INSERT INTO categoria (nombre) VALUES (?)", [nombre]);
@@ -40,9 +40,9 @@ router.post('/', async (req, res, next) => {
 
 /* Actualizar categoria. */
 router.put('/:id', async (req, res, next) => {
-  var { nombre} = req.body;
+  var {nombre} = req.body;
   try {
-    const result = await query(`UPDATE categoria SET id_categoria = ${req.params.id},  nombres = '${nombre}'`);           
+    const result = await query(`UPDATE categoria SET nombre = '${nombre}' WHERE id_categoria = ${req.params.id}`);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
