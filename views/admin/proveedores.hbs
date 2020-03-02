@@ -9,7 +9,7 @@
 <div class="col-xl-12">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -31,17 +31,33 @@
                       aria-label="Age: activate to sort column ascending" style="width: 33px;">Teléfono</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Start date: activate to sort column ascending" style="width: 80px;">Estado</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      style="width: 60px;">Acciones</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {{#each proveedores}}
                   <tr role="row" class="odd">
-                    <td class="sorting_1">{{nombre}}</td>
+                    <td class="sorting_1">{{razon_social}}</td>
                     <td>{{nit}}</td>
                     <td>{{direccion}}</td>
                     <td>{{telefono}}</td>
                     <td>{{activo}}</td>
+                    <td>
+                      <div id="actionsContainer">
+                        <div id="actiosItems">
+                          <span id="span1"> <a class="nav-link" href="#"
+                              onclick="actualizaractionForm({{id_proveedor}}, '{{razon_social}}')">
+                              <i class="fas fa-fw fa-edit"></i>
+                            </a>
+                          </span>
+                          <span id="span2"><a class="nav-link" href="#" onclick="eliminar({{id_proveedor}})">
+                              <i class="fa fa-trash"></i>
+                            </a></span>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
                   {{/each}}
                 </tbody>
@@ -101,7 +117,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="cerrar()">Cancelar</button>
-        <a class="btn btn-primary" href="#" onclick="guardar()">Guardar</a>
+        <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
       </div>
     </div>
   </div>
@@ -110,17 +126,46 @@
 <script>
 
   function guardar() {
-
     fetch('/admin/proveedores', {
       method: 'POST',
-       body: JSON.stringify({ nit: document.getElementById("nit").value, razon_social: document.getElementById("cat_nombre").value, telefono: document.getElementById("telefono").value, direccion: document.getElementById("direccion").value }),
-
+      body: JSON.stringify({ nit: document.getElementById("nit").value, razon_social: document.getElementById("cat_nombre").value, telefono: document.getElementById("telefono").value, direccion: document.getElementById("direccion").value }),
       headers: { 'Content-Type': 'application/json' }
     }).then(result => {
-
       $('#CategoryModal').modal('hide');
+      location.reload();
     }).catch(err => {
       console.log(err);
-    });  
+    });
   }
+   function actualizaractionForm(id, nombre) {
+    $('#CategoryModal').modal('show');
+    document.getElementById('exampleModalLabel').innerHTML = 'Editar proveedor';
+    document.getElementById("cat_nombre").value = razon_social;
+    document.getElementById("actionForm").setAttribute("onClick", `javascript: actualizar(${id});`);
+  }
+  function actualizar(id) {
+    fetch(`/admin/proveedores/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ nit: document.getElementById("nit").value, razon_social: document.getElementById("cat_nombre").value, telefono: document.getElementById("telefono").value }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+      $('#CategoryModal').modal('hide');
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+  function eliminar(id) {
+    fetch(`/admin/proveedores/${id}`, {
+      method: 'DELETE'
+    }).then(result => {
+      console.log(result);
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+
 </script>
