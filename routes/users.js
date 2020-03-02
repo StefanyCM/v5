@@ -27,9 +27,9 @@ router.get('/:id', async (req, res, next) => {
 
 /* Registrar usuario. */
 router.post('/', async (req, res, next) => {
-  var { cedula, nombres, apellidos, telefono, mail, password, rol } = req.body;
+  var { cedula, nombres, apellidos, telefono, mail, password, fk_id_rol } = req.body;
   try {
-    const result = await query("INSERT INTO usuario (cedula, nombres, apellidos, telefono, mail, password, fk_id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)", [cedula, nombres, apellidos, telefono, mail, password, rol]);           
+    const result = await query("INSERT INTO usuario (cedula, nombres, apellidos, telefono, mail, password, fk_id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)", [cedula, nombres, apellidos, telefono, mail, password, fk_id_rol]);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
