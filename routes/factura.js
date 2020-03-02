@@ -13,6 +13,7 @@ router.get('/', async (req, res, next) => {
   try {
     const result = await query("SELECT * FROM v_facturas");
     res.json(result);
+    
   } catch (error) {
     console.log(error);
   } 
