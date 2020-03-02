@@ -8,7 +8,7 @@ const query = util.promisify(db.query).bind(db);
 
 /* Obtener listado de proveedor. */
 router.get('/', async (req, res, next) => {
-  const result = await query('SELECT * FROM proveedor');
+  const result = await query('SELECT * FROM proveedor WHERE activo = "1"');
   res.render('admin/proveedores', { proveedores: result, layout: 'admin' })
 });
 
@@ -42,8 +42,9 @@ router.put('/:id', async (req, res, next) => {
 
   console.log(req.body);
   var { nit, razon_social, telefono, direccion } = req.body;
+                                                 
   try {
-    const result = await query(`UPDATE proveedor SET id_proveedor = ${req.params.id}, nit = ${nit}, razon_social = '${razon_social}', telefono = ${telefono},  direccion = '${direccion}' WHERE id_usuario = ${req.params.id}`);           
+    const result = await query(`UPDATE proveedor SET  nit = ${nit}, razon_social = '${razon_social}', telefono = ${telefono},  direccion = '${direccion}' WHERE id_proveedor = ${req.params.id}`);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
