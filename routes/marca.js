@@ -28,7 +28,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   var {  nombre } = req.body;
   try {
-    const result = await query("INSERT INTO marca (nombrer) VALUES (?)", [nombre]);           
+    const result = await query("INSERT INTO marca (nombre) VALUES (?)", [nombre]);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
