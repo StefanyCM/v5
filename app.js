@@ -7,7 +7,7 @@ let exphbs = require('express-handlebars');
 var helpers = require('handlebars-helpers')();
 
 
-// Routes
+// Routes Admin
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
@@ -19,6 +19,16 @@ var proveedorRouter = require('./routes/proveedor');
 var inventarioRouter = require('./routes/inventario');
 var auditoriaRouter = require('./routes/auditoria');
 var facturaRouter = require('./routes/factura');
+
+
+//Routes Store
+
+var indexRouterStore = require('./routeStore/index');
+var carritoRouterStore = require('./routeStore/carrito');
+var contactoRouterStore = require('./routeStore/contacto');
+var nosotrosRouterStore = require('./routeStore/nosotros');
+var ofertasRouterStore = require('./routeStore/ofertas');
+var serviciosRouterStore = require('./routeStore/servicios');
 
 var app = express();
 
@@ -64,6 +74,15 @@ app.use('/admin/inventario', inventarioRouter);
 app.use('/admin/auditoria', auditoriaRouter);
 app.use('/admin/factura', facturaRouter);
 
+
+
+
+app.use('/', indexRouterStore);
+app.use('/carrito', carritoRouterStore);
+app.use('/contacto', contactoRouterStore);
+app.use('/admin/nosotros', nosotrosRouterStore);
+app.use('/admin/ofertas', ofertasRouterStore);
+app.use('/admin/servicios', serviciosRouterStore);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
