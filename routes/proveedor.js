@@ -26,9 +26,10 @@ router.get('/:id', async (req, res, next) => {
 
 /* Registrar proveedor. */
 router.post('/', async (req, res, next) => {
-  var { nit, nombre, activo, razon_social, telefono, direccion } = req.body;
+
+  var { nit, razon_social, telefono, direccion } = req.body;
   try {
-    const result = await query("INSERT INTO proveedor (nit, nombre, razon_social, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?)", [nit, nombre, razon_social, telefono, direccion]);           
+    const result = await query("INSERT INTO proveedor (nit, razon_social, telefono, direccion) VALUES (?, ?, ?, ?)", [nit, razon_social, telefono, direccion]);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
@@ -38,9 +39,11 @@ router.post('/', async (req, res, next) => {
 
 /* Actualizar proveedor. */
 router.put('/:id', async (req, res, next) => {
-  var { nit, nombre, razon_social, telefono, direccion } = req.body;
+
+  console.log(req.body);
+  var { nit, razon_social, telefono, direccion } = req.body;
   try {
-    const result = await query(`UPDATE proveedor SET id_proveedor = ${req.params.id}, nit = ${nit}, nombre = '${nombre}', razon_social = '${razon_social}', telefono = ${telefono},  direccion = '${direccion}' WHERE id_usuario = ${req.params.id}`);           
+    const result = await query(`UPDATE proveedor SET id_proveedor = ${req.params.id}, nit = ${nit}, razon_social = '${razon_social}', telefono = ${telefono},  direccion = '${direccion}' WHERE id_usuario = ${req.params.id}`);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
