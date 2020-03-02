@@ -26,9 +26,9 @@ router.get('/:id', async (req, res, next) => {
 
 /* Registrar usuario. */
 router.post('/', async (req, res, next) => {
-  var { cedula, nombres, apellidos, telefono, mail, password, rol } = req.body;
+  var { cedula, nombres, apellidos, telefono, mail, password, fk_id_rol } = req.body;
   try {
-    const result = await query("INSERT INTO usuario (cedula, nombres, apellidos, telefono, mail, password, fk_id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)", [cedula, nombres, apellidos, telefono, mail, password, rol]);           
+    const result = await query("INSERT INTO usuario (cedula, nombres, apellidos, telefono, mail, password, fk_id_rol) VALUES (?, ?, ?, ?, ?, ?, ?)", [cedula, nombres, apellidos, telefono, mail, password, fk_id_rol]);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
@@ -51,10 +51,8 @@ router.put('/:id', async (req, res, next) => {
 /* Eliminar usuario. */
 router.delete('/:id', async (req, res, next) => {
   try {
-    const result = await query(`UPDATE usuario SET activo = 0 WHERE id_usuario = ${req.params.id}`);      
-    res.json(result);     
+    res.json(await query(`DELETE FROM usuario WHERE id_usuario =  ${req.params.id} AND id_usuario NOT IN (SELECT p.fk_usuario FROM pedido p)`));     
   } catch (error) {
-    console.log('Error =>', error);
     res.send(error.sqlMessage);
   }
 });

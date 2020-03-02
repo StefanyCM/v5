@@ -1,57 +1,232 @@
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal"
+      data-target="#CategoryModal"><i class="fas fa-download fa-sm text-white-50"></i> Registrar Usuarios</a>
   </div>
 </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-          <div class="row">
-            <div class="col-sm-12">
-              <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
-                aria-describedby="dataTable_info" style="width: 100%;">
-                <thead>
-                  <tr role="row">
-                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 123px;">
-                      Cedula</th>
-                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Position: activate to sort column ascending" style="width: 193px;">Nombres</th>
-                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Office: activate to sort column ascending" style="width: 86px;">Apellidos</th>
-                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Office: activate to sort column ascending" style="width: 86px;">Activo</th>
-                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Age: activate to sort column ascending" style="width: 33px;">Teléfono</th>
-                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Email</th>
-                  </tr>
-                </thead>
+<div class="card-body">
+  <div class="table-responsive">
+    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+      <div class="row">
+        <div class="col-sm-12">
+          <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+            aria-describedby="dataTable_info" style="width: 100%;">
+            <thead>
+              <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                  aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 123px;">
+                  Cedula</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                  aria-label="Position: activate to sort column ascending" style="width: 193px;">Nombres</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                  aria-label="Office: activate to sort column ascending" style="width: 86px;">Apellidos</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                  aria-label="Office: activate to sort column ascending" style="width: 86px;">Activo</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                  aria-label="Age: activate to sort column ascending" style="width: 33px;">Teléfono</th>
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                  aria-label="Start date: activate to sort column ascending" style="width: 80px;">Email</th>
+        
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 50px;">
+                  Acciones</th>
+              </tr>
 
-                <tbody>
-                  {{#each usuarios}}
-                  <tr role="row" class="odd">
-                    <td class="sorting_1">{{cedula}}</td>
-                    <td>{{nombres}}</td>
-                    <td>{{apellidos}}</td>
-                    <td>
-                      {{#ifEquals activo '1'}}
-                        Activo
-                      {{else}}
-                        Inactivo
-                      {{/ifEquals}}
-                    </td>
-                    <td>{{telefono}}</td>
-                    <td>{{mail}}</td>
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-          </div>
+              </tr>
+            </thead>
+
+            <tbody>
+              {{#each usuarios}}
+              <tr role="row" class="odd">
+                <td class="sorting_1">{{cedula}}</td>
+                <td>{{nombres}}</td>
+                <td>{{apellidos}}</td>
+                <td>
+                  {{#ifEquals activo '1'}}
+                    Activo
+                  {{else}}
+                    Inactivo
+                  {{/ifEquals}}
+                </td>
+                <td>{{telefono}}</td>
+                <td>{{mail}}</td>
+                <td>
+                  <div id="actionsContainer">
+                    <div id="actiosItems">
+                      <span id="span1"> <a class="nav-link" href="#"
+                          onclick="actualizaractionForm({{id_usuario}}, {{cedula}}, '{{nombres}}','{{apellidos}}','{{telefono}}','{{mail}}','{{password}}',{{fk_id_rol}})">
+                          <i class="fas fa-fw fa-edit"></i>
+                        </a>
+                      </span>
+                      <span id="span2"><a class="nav-link" href="#" onclick="eliminar({{id_usuario}})">
+                          <i class="fa fa-trash"></i>
+                        </a></span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+</div>
 
+<!-- Logout Modal-->
+<div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+  <div class="modal-dialog" style="width:1250px" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar usuarios</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Cedula</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="cedula">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="nombres">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Apellido</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="apellidos">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Telefono</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="telefono">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Mail</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="mail">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Pasword</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="password">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Rol</label>
+            <div class="col-sm-10">
+              <label>
+                <input type="radio" name="rol" value="1212" id="ad"> Admin
+              </label>
+              <label>
+                <input type="radio" name="rol" value="1222" id="cli"> Cliente
+              </label>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="cerrar()">Cancelar</button>
+        <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function guardar() {
+    var ele = document.getElementsByTagName("input");
+    var tipoUser;
+
+    for (i = 0; i < ele.length; i++) {
+
+      if (ele[i].type = "radio") {
+
+        if (ele[i].checked)
+          tipoUser = ele[i].value;
+
+      }
+    }
+    console.log(tipoUser);
+
+    fetch('/admin/usuarios', {
+      method: 'POST',
+      body: JSON.stringify({ cedula: document.getElementById("cedula").value, nombres: document.getElementById("nombres").value, apellidos: document.getElementById("apellidos").value, telefono: document.getElementById("telefono").value, mail: document.getElementById("mail").value, password: document.getElementById("password").value, fk_id_rol: tipoUser }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+      console.log(result);
+      $('#CategoryModal').modal('hide');
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+
+  }
+
+  function actualizaractionForm(id, cedula, nombres, apellidos, telefono, mail, password) {
+    $('#CategoryModal').modal('show');
+    document.getElementById('exampleModalLabel').innerHTML = 'Editar usuario';
+    document.getElementById("cedula").value = cedula;
+    document.getElementById("nombres").value = nombres;
+    document.getElementById("apellidos").value = apellidos;
+    document.getElementById("telefono").value = telefono;
+    document.getElementById("mail").value = mail;
+    document.getElementById("password").value = password;
+    document.getElementById("cedula").setAttribute('readonly', true);
+    document.getElementById("actionForm").setAttribute("onClick", `javascript: actualizar(${id});`);
+  }
+
+
+
+  function actualizar(id) {
+    fetch(`/admin/usuarios/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ nombre: document.getElementById("cat_nombre").value }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+      $('#CategoryModal').modal('hide');
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+
+  function eliminar(id) {
+    fetch(`/admin/usuarios/${id}`, {
+      method: 'DELETE'
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data.affectedRows > 0);
+        if(data.affectedRows > 0) {
+          location.reload();
+        } else {
+          alert("El usuario no se puede eliminar porque tiene pedidos asociados")
+        }
+      })
+      .catch(err => {
+      console.log(err);
+    });
+  }
+
+
+</script>
