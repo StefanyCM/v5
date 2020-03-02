@@ -11,6 +11,7 @@
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "express-handlebars": "^3.1.0",
+    "handlebars-helpers": "^0.10.0",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "join-js": "^1.0.2",

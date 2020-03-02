@@ -43,7 +43,13 @@
                     <td>{{nit}}</td>
                     <td>{{direccion}}</td>
                     <td>{{telefono}}</td>
-                    <td>{{activo}}</td>
+                    <td>
+                      {{#ifEquals activo '1'}}
+                        Activo
+                      {{else}}
+                        Inactivo
+                      {{/ifEquals}}
+                    </td>
                     <td>
                       <div id="actionsContainer">
                         <div id="actiosItems">

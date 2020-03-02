@@ -21,7 +21,7 @@
                 <thead>
                   <tr role="row">
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Position: activate to sort column ascending" style="width: 90px;">Nombre Usuario </th>
+                      aria-label="Position: activate to sort column ascending" style="width: 90px;">Cliente</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Office: activate to sort column ascending" style="width: 90px;">Precio</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
@@ -37,9 +37,15 @@
                   {{#each pedidos}}
                   <tr role="row" class="odd">
                     <td>{{nombres}} {{apellidos}} </td>
-                    <td>{{total}}</td>
-                    <td>{{completado}}</td>
-                    <td>{{fecha}}</td>
+                    <td>${{formatCurrency total}}</td>
+                    <td>
+                    {{#ifEquals completado '1'}}
+                        Completado
+                      {{else}}
+                        Pendiente
+                      {{/ifEquals}}
+                    </td>
+                    <td>{{moment fecha "MMM-DD-YYYY"}}</td>
                     <td>
                       <div id="actionsContainer">
                         <div id="actiosItems">

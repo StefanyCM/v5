@@ -8,7 +8,6 @@
 <div class="col-xl-12">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">-----------</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -20,13 +19,13 @@
                 <thead>
                   <tr role="row">
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Position: activate to sort column ascending" style="width: 193px;">Nombre</th>
+                      aria-label="Position: activate to sort column ascending" style="width: 120px;">Imagen</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Office: activate to sort column ascending" style="width: 86px;">Descripcion</th>
+                      aria-label="Office: activate to sort column ascending" style="width: 86px;">Nombre</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Age: activate to sort column ascending" style="width: 33px;">Imagen</th>
+                      aria-label="Age: activate to sort column ascending" style="width: 33px;">Descripción</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Disponible</th>
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Disponibilidad</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Start date: activate to sort column ascending" style="width: 80px;">Precio</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
@@ -38,12 +37,17 @@
                 <tbody>
                   {{#each productos}}
                   <tr role="row" class="odd">
-                    <td>{{nombre}} </td>
+                     <td> <img src="{{imagen}}" class="imgFill productImg" height="200" width="200"> </td>
+                    <td>{{nombre}} {{id_producto}} </td>
                     <td>{{descripcion}}</td>
-                    <td> <img src="{{imagen}}" class="imgFill productImg" height="200" width="200"> </td>
-                    <td>{{disponible}}</td>
-                    <td>{{precio_venta}}</td>
-                    
+                    <td>
+                      {{#ifEquals disponible '1'}}
+                        Disponible
+                      {{else}}
+                        No disponible
+                      {{/ifEquals}}
+                    </td>
+                    <td>${{formatCurrency precio_venta}}</td>
                     <td>{{marca}}</td>
                     <td>{{categoria}}</td>
                   </tr>

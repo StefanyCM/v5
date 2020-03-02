@@ -10,7 +10,7 @@ const query = util.promisify(db.query).bind(db);
 router.get('/', async (req, res, next) => {
   const result = await query('SELECT * FROM categoria');
   
-  res.render('admin/categorias', { categorias: result, layout: 'admin' })
+  res.render('admin/categorias', { categorias: result, layout: 'admin', title: 'Categorías' })
 });
 
 /* Obtener un categoria. */

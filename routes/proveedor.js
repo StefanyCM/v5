@@ -8,8 +8,8 @@ const query = util.promisify(db.query).bind(db);
 
 /* Obtener listado de proveedor. */
 router.get('/', async (req, res, next) => {
-  const result = await query('SELECT * FROM proveedor WHERE activo = "1"');
-  res.render('admin/proveedores', { proveedores: result, layout: 'admin' })
+  const result = await query('SELECT * FROM proveedor');
+  res.render('admin/proveedores', { proveedores: result, layout: 'admin', title: 'Proveedores' })
 });
 
 /* Obtener un proveedor. */
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res, next) => {
 /* Eliminar proveedor. */
 router.delete('/:id', async (req, res, next) => {
   try {
-    const result = await query(`UPDATE proveedor SET activo = 0 WHERE id_proveedor = ${req.params.id}`);      
+    const result = await query(`DELETE FROM proveedor WHERE id_proveedor = ${req.params.id} AND activo = 0`);      
     res.json(result);     
   } catch (error) {
     console.log('Error =>', error);

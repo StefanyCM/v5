@@ -88,12 +88,12 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-//traer los productos de items 
+//Listar productos
 router.get('/', async (req, res, next) => {
   const result = await query('SELECT producto.id_producto, producto.nombre, producto.descripcion, producto.imagen, producto.disponible, producto.precio_venta, Count(*) AS cantidad, marca.nombre AS marca, categoria.nombre AS categoria FROM producto INNER JOIN item INNER JOIN marca ON producto.fk_id_marca = marca.id_marca INNER JOIN categoria ON producto.fk_id_categoria = categoria.id_categoria WHERE producto.id_producto = item.fk_id_producto AND item.estado = "disponible" GROUP BY producto.id_producto');
   
     
-  res.render('admin/products', { productos: result, layout: 'admin' })
+  res.render('admin/products', { productos: result, layout: 'admin', title: 'Productos' })
 });
 
 module.exports = router;

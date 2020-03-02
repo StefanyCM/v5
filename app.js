@@ -3,7 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let exphbs = require('express-handlebars')
+let exphbs = require('express-handlebars');
+var helpers = require('handlebars-helpers')();
+
+
+// Routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
@@ -24,12 +28,19 @@ app.engine('.hbs', exphbs({
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
-    helpers: {
-      toJSON : function(object) {
+    helpers: { ...helpers,
+      toJSON : (object) => {
         return JSON.stringify(object);
+      },
+      ifEquals: (arg1, arg2, options) => {
+        return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+      },
+      formatCurrency: (value) => {
+        return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
       }
     }
   })
+  
 )
 app.set('view engine', '.hbs')
 app.use(logger('dev'));
