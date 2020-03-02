@@ -63,7 +63,7 @@
   <div class="modal-dialog" style="width:1250px" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Registrar categoría</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Registrar Proveedor</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -80,13 +80,7 @@
           <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">NIT</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="nit">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Direccion</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="direccion">
+              <input type="number" class="form-control" id="nit">
             </div>
           </div>
           <div class="form-group row">
@@ -95,8 +89,12 @@
               <input type="text" class="form-control" id="telefono">
             </div>
           </div>
-      
-
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Direccion</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="direccion">
+            </div>
+          </div>
 
         </form>
 
@@ -111,18 +109,18 @@
 
 <script>
 
-function guardar(){
-  fetch('/admin/proveedores', {
-    method: 'POST',
-    body: JSON.stringify({nit: document.getElementById("nit").value,razon_social: document.getElementById("cat_nombre").value, telefono: document.getElementById("telefono").value,  direccion: document.getElementById("direccion").value }),
-    headers:{'Content-Type': 'application/json'}
-  }).then(result=>{
-    console.log(result);
+  function guardar() {
+
+    fetch('/admin/proveedores', {
+      method: 'POST',
+       body: JSON.stringify({ nit: document.getElementById("nit").value, razon_social: document.getElementById("cat_nombre").value, telefono: document.getElementById("telefono").value, direccion: document.getElementById("direccion").value }),
+
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+
       $('#CategoryModal').modal('hide');
-  }).catch(err => {
-    console.log(err);
-  });
-}
-
-
+    }).catch(err => {
+      console.log(err);
+    });  
+  }
 </script>

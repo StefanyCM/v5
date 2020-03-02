@@ -83,7 +83,7 @@ function guardar(){
     body: JSON.stringify({nombre: document.getElementById("cat_nombre").value}),
     headers:{'Content-Type': 'application/json'}
   }).then(result=>{
-    console.log(result);
+
       $('#CategoryModal').modal('hide');
   }).catch(err => {
     console.log(err);

@@ -40,7 +40,7 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   var { nombre} = req.body;
   try {
-    const result = await query(`UPDATE marca SET id_marca = ${req.params.id},  nombres = '${nombre}'`);           
+    const result = await query(`UPDATE marca SET id_marca = ${req.params.id},  nombre = '${nombre}'`);           
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
@@ -54,7 +54,7 @@ router.delete('/:id', async (req, res, next) => {
     const result = await query(`DELETE FROM marca WHERE id_marca = ${req.params.id}`);      
     res.json(result);     
   } catch (error) {
-    console.log('Error =>', error);
+ 
     res.send(error.sqlMessage);
   }
 });
