@@ -27,9 +27,9 @@
                   aria-label="Age: activate to sort column ascending" style="width: 33px;">Teléfono</th>
                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                   aria-label="Start date: activate to sort column ascending" style="width: 80px;">Email</th>
-                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                   aria-label="Start date: activate to sort column ascending" style="width: 80px;">Pasword</th>
-                  
+
                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 50px;">
                   Acciones</th>
               </tr>
@@ -46,19 +46,20 @@
                 <td>{{activo}}</td>
                 <td>{{telefono}}</td>
                 <td>{{mail}}</td>
-                    <td>
-                      <div id="actionsContainer">
-                        <div id="actiosItems">
-                          <span id="span1"> <a class="nav-link" href="#" onclick="actualizaractionForm({{id_usuario}}, {{cedula}}, '{{nombres}}','{{apellidos}}','{{telefono}}','{{mail}}','{{password}}',{{fk_id_rol}})">
-                              <i class="fas fa-fw fa-edit"></i>
-                            </a>
-                          </span>
-                          <span id="span2"><a class="nav-link" href="#" onclick="eliminar({{id_usuario}})">
-                              <i class="fa fa-trash"></i>
-                            </a></span>
-                        </div>
-                      </div>
-                    </td>
+                <td>
+                  <div id="actionsContainer">
+                    <div id="actiosItems">
+                      <span id="span1"> <a class="nav-link" href="#"
+                          onclick="actualizaractionForm({{id_usuario}}, {{cedula}}, '{{nombres}}','{{apellidos}}','{{telefono}}','{{mail}}','{{password}}',{{fk_id_rol}})">
+                          <i class="fas fa-fw fa-edit"></i>
+                        </a>
+                      </span>
+                      <span id="span2"><a class="nav-link" href="#" onclick="eliminar({{id_usuario}})">
+                          <i class="fa fa-trash"></i>
+                        </a></span>
+                    </div>
+                  </div>
+                </td>
               </tr>
               {{/each}}
             </tbody>
@@ -84,7 +85,7 @@
       <div class="modal-body">
 
         <form>
-             <div class="form-group row">
+          <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Cedula</label>
             <div class="col-sm-10">
               <input type="number" class="form-control" id="cedula">
@@ -174,7 +175,7 @@
 
   }
 
-  function actualizaractionForm(id, cedula, nombres, apellidos, telefono, mail, password ) {
+  function actualizaractionForm(id, cedula, nombres, apellidos, telefono, mail, password) {
     $('#CategoryModal').modal('show');
     document.getElementById('exampleModalLabel').innerHTML = 'Editar usuario';
     document.getElementById("cedula").value = cedula;
@@ -183,7 +184,7 @@
     document.getElementById("telefono").value = telefono;
     document.getElementById("mail").value = mail;
     document.getElementById("password").value = password;
-    document.getElementById("cedula").setAttribute('readonly', true) ;
+    document.getElementById("cedula").setAttribute('readonly', true);
     document.getElementById("actionForm").setAttribute("onClick", `javascript: actualizar(${id});`);
   }
 
