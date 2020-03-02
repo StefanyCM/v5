@@ -55,6 +55,12 @@
       <span>Proveedores</span></a>
   </li>
 
+   <li{{#ifEquals title 'Facturas'}} class="nav-item active" {{else}} class="nav-item"{{/ifEquals}}>
+    <a class="nav-link" href="factura">
+      <i class="fas fa-fw fa-box"></i>
+      <span>Facturas</span></a>
+  </li>
+
   <li{{#ifEquals title 'Usuarios'}} class="nav-item active" {{else}} class="nav-item"{{/ifEquals}}>
     <a class="nav-link" href="usuarios">
       <i class="fas fa-fw fa-users"></i>
