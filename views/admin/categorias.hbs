@@ -1,10 +1,11 @@
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Categorías</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Registrar Categoría</a>
-    </div>
-</div>  <div class="col-xl-12">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Categorías</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal"
+      data-target="#CategoryModal"><i class="fas fa-download fa-sm text-white-50"></i> Registrar Categoría</a>
+  </div>
+</div>
+<div class="col-xl-12">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
@@ -23,10 +24,8 @@
                       Id</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Position: activate to sort column ascending" style="width: 193px;">Nombre</th>
-                    
                   </tr>
                 </thead>
-
                 <tbody>
                   {{#each categorias}}
                   <tr role="row" class="odd">
@@ -43,3 +42,52 @@
     </div>
   </div>
 </div>
+
+
+<!-- Logout Modal-->
+<div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+  <div class="modal-dialog" style="width:1250px" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar categoría</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="cat_nombre">
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="cerrar()">Cancelar</button>
+        <a class="btn btn-primary" href="#" onclick="guardar()">Guardar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function guardar(){
+  fetch('/admin/categorias', {
+    method: 'POST',
+    body: JSON.stringify({nombre: document.getElementById("cat_nombre").value}),
+    headers:{'Content-Type': 'application/json'}
+  }).then(result=>{
+    console.log(result);
+      $('#CategoryModal').modal('hide');
+  }).catch(err => {
+    console.log(err);
+  });
+}
+
+
+</script>

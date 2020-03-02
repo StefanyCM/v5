@@ -27,9 +27,10 @@ router.get('/:id', async (req, res, next) => {
 
 /* Registrar categoria. */
 router.post('/', async (req, res, next) => {
-  var {  nombre } = req.body;
+  console.log(req.body)
+  var { nombre } = req.body;
   try {
-    const result = await query("INSERT INTO categoria (nombrer) VALUES (?)", [nombre]);           
+    const result = await query("INSERT INTO categoria (nombre) VALUES (?)", [nombre]);
     res.json(result);
   } catch (error) {
     console.log('Error =>', error);
