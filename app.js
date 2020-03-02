@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 var categoriaRouter = require('./routes/categoria');
 var marcaRouter = require('./routes/marca');
 var proveedorRouter = require('./routes/proveedor');
+var inventarioRouter = require('./routes/inventario');
 
 var app = express();
 
@@ -47,6 +48,8 @@ app.use('/admin/pedidos', pedidoRouter);
 app.use('/admin/categorias', categoriaRouter);
 app.use('/admin/marcas', marcaRouter);
 app.use('/admin/proveedores', proveedorRouter);
+app.use('/admin/inventario', inventarioRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
