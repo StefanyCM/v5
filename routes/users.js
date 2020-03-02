@@ -10,7 +10,7 @@ const query = util.promisify(db.query).bind(db);
 router.get('/', async (req, res, next) => {
   const result = await query('SELECT * FROM usuario');
     
-  res.render('admin/empleadosyproovedores', { categorias: result, layout: 'admin' })
+  res.render('admin/usuario', { usuarios: result, layout: 'admin' })
 });
 
 /* Obtener un usuario. */
