@@ -13,6 +13,7 @@ var categoriaRouter = require('./routes/categoria');
 var marcaRouter = require('./routes/marca');
 var proveedorRouter = require('./routes/proveedor');
 var inventarioRouter = require('./routes/inventario');
+var auditoriaRouter = require('./routes/auditoria');
 
 var app = express();
 
@@ -40,7 +41,7 @@ app.use(bodyParser.raw());
 app.use(bodyParser.json());
 
 
-app.use('/', indexRouter);
+app.use('/admin/', indexRouter);
 app.use('/admin/usuarios', usersRouter);
 app.use('/admin/productos', productsRouter);
 app.use('/admin/pedidos', pedidoRouter);
@@ -48,6 +49,7 @@ app.use('/admin/categorias', categoriaRouter);
 app.use('/admin/marcas', marcaRouter);
 app.use('/admin/proveedores', proveedorRouter);
 app.use('/admin/inventario', inventarioRouter);
+app.use('/admin/auditoria', auditoriaRouter);
 
 
 // catch 404 and forward to error handler
