@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Productos</h1>
-    <a href="agregarproducto.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-        class="fas fa-download fa-sm text-white-50"></i> Productos</a>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal"
+      data-target="#CategoryModal"><i class="fas fa-download fa-sm text-white-50"></i> Registrar Producto</a>
   </div>
 </div>
 <div class="col-xl-12">
@@ -25,31 +25,48 @@
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Age: activate to sort column ascending" style="width: 33px;">Descripción</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Disponibilidad</th>
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Disponibilidad
+                    </th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Start date: activate to sort column ascending" style="width: 80px;">Precio</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Start date: activate to sort column ascending" style="width: 80px;">Marca</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Start date: activate to sort column ascending" style="width: 80px;">Categoria</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Accion</th>
                   </tr>
                 </thead>
                 <tbody>
                   {{#each productos}}
                   <tr role="row" class="odd">
-                     <td> <img src="{{imagen}}" class="imgFill productImg" height="200" width="200"> </td>
-                    <td>{{nombre}}  </td>
+                    <td> <img src="{{imagen}}" class="imgFill productImg" height="200" width="200"> </td>
+                    <td>{{nombre}} </td>
                     <td>{{descripcion}}</td>
                     <td>
                       {{#ifEquals disponible '1'}}
-                        Disponible
+                      Disponible
                       {{else}}
-                        No disponible
+                      No disponible
                       {{/ifEquals}}
                     </td>
                     <td>${{formatCurrency precio_venta}}</td>
                     <td>{{marca}}</td>
                     <td>{{categoria}}</td>
+                    <td>
+                      <div id="actionsContainer">
+                        <div id="actiosItems">
+                          <span id="span1"> <a class="nav-link" href="#"
+                              onclick="actualizaractionForm({{id_categoria}}, '{{nombre}}')">
+                              <i class="fas fa-fw fa-edit"></i>
+                            </a>
+                          </span>
+                          <span id="span2"><a class="nav-link" href="#" onclick="eliminar({{id_categoria}})">
+                              <i class="fa fa-trash"></i>
+                            </a></span>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
                   {{/each}}
                 </tbody>
@@ -61,3 +78,163 @@
     </div>
   </div>
 </div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:1250px" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar producto</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="producto">
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="inputFirstname">Nombre</label>
+              <input type="text" class="form-control" id="nombre" placeholder="Nombre del producto">
+            </div>
+            <div class="col-sm-6">
+              <label for="inputLastname">Descripcion</label>
+              <input type="text" class="form-control" id="descripcion" placeholder="Descripcion del producto">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="inputCity">Precio Venta</label>
+              <input type="text" class="form-control" id="precioV" placeholder="precio Venta">
+            </div>
+            <div class="col-sm-3">
+              <label for="inputState">Categorias</label>
+              <div class="col-sm-10">
+                <select class="browser-default custom-select">
+                  <option selected>Categorias disponibles</option>
+                  {{#each categorias}}
+                  <option value="1" id="categorias">{{nombre}} </option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label for="inputPostalCode">Marcas</label>
+              <select class="browser-default custom-select">
+                <option selected>Marcas disponibles</option>
+                {{#each marcas}}
+                <option value="1" id="marcas">{{nombre}} </option>
+                {{/each}}
+              </select>
+
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="inputContactNumber">Cantidad</label>
+              <input type="number" class="form-control" id="cantidad" placeholder="Cantidad productos">
+            </div>
+
+          </div>
+          <a class="btn btn-primary px-4 float-right" href="#" id="traerItems" onclick="traerItems()">Save</a>
+        </form>
+        <form id="item" style="display:none">
+
+
+          <button type="button" class="btn btn-primary px-4 float-right" href="#" id="traerItems"
+            onclick="traerItems()">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="cerrar()">Cancelar</button>
+        <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function guardar() {
+    fetch('/admin/products', {
+      method: 'POST',
+      body: JSON.stringify({
+        nombre: document.getElementById("nombre").value,
+        descripcion: document.getElementById("descripcion").value,
+        precio_venta: document.getElementById("precioV").value,
+        fk_id_marca: document.getElementById("marcas").value,
+        fk_id_categoria: document.getElementById("categorias").value,
+
+      }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+      console.log(result);
+      $('#CategoryModal').modal('hide');
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+  function actualizaractionForm(id, nombre) {
+    $('#CategoryModal').modal('show');
+    document.getElementById('exampleModalLabel').innerHTML = 'Editar categoría';
+    document.getElementById("cat_nombre").value = nombre;
+    document.getElementById("actionForm").setAttribute("onClick", `javascript: actualizar(${id});`);
+  }
+
+
+
+  function traerItems() {
+
+    document.getElementById("producto").style.display = "none";
+    document.getElementById("item").style.display = "block";
+
+    var c = document.getElementById("cantidad").value;
+    for (var i = 0; i < c; i++) {
+      $("#items").append(
+        `<div class="col-sm-6">
+        <label for="inputCity">Referencia </label> 
+        <input id ="referencia${i}" type="text" class="form-control" id="precioV" placeholder="Referencia"> 
+        </div>   <div class="col-sm-3"> 
+        <div class="col-sm-10"> 
+        <input type="number" class="form-control" id="precioV${i}" placeholder="preco compra"> 
+        </div> 
+        </div>  <div class="col-sm-3"> 
+        <label for="inputPostalCode">Proveedores</label> 
+        <select class="browser-default custom-select">    <option selected>Proveedores disponibles</option> 
+         {{#each proveedor}} 
+          <option value="1" id="proveedores${i}">{{nombre}} </option> 
+         {{/each}}   </select>  </div> 
+        </div>`);
+    }
+
+  }
+
+  function actualizar(id) {
+    fetch(`/admin/categorias/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ nombre: document.getElementById("cat_nombre").value }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+      $('#CategoryModal').modal('hide');
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+
+
+  function eliminar(id) {
+    fetch(`/admin/categorias/${id}`, {
+      method: 'DELETE'
+    }).then(result => {
+      console.log(result);
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+
+</script>
