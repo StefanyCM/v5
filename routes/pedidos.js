@@ -90,13 +90,8 @@ router.get('/:id', async (req, res, next) => {
       "INNER JOIN forma_pago ON pedido.fk_forma_pago = forma_pago.id_forma_pago\n" +
       "WHERE pedido.id_pedido = ?", [req.params.id]
     );
-
     let join = await joinjs.default.map(result, _pedidoMap, 'pedidoMap', 'pedido_')
-
-   
-      
-    res.render('admin/pedidos', { pedidos: join, layout: 'admin' })
-
+    res.json(join);
   } catch (error) {
     console.log('Error =>', error);
     res.send(error.sqlMessage);

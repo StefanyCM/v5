@@ -22,6 +22,8 @@ router.get('/', async (req, res, next) => {
 
 
 router.post('/', async function (req, res, next) {
+
+  console.log(req.body)
   try {
     await db.getConnection((err, conn) => {
       if (err) {

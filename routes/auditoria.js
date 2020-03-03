@@ -10,8 +10,9 @@ const query = util.promisify(db.query).bind(db);
 
 router.get('/', async function (req, res, next) {
   return MongoClient.connect(url, async (err, client) => {
-    await client.db('compunet').collection('auditoria').find({}).toArray(function (err, docs) {
-      res.json(docs);
+    let auditoria = await client.db('compunet').collection('auditoria').find({}).toArray(function (err, docs) {
+      console.log(docs)
+      res.render('admin/backups', {layout: 'admin', data: docs });
     });
     client.close();
   });
