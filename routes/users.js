@@ -51,7 +51,7 @@ router.put('/:id', async (req, res, next) => {
 /* Eliminar usuario. */
 router.delete('/:id', async (req, res, next) => {
   try {
-    res.json(await query(`DELETE FROM usuario WHERE id_usuario =  ${req.params.id} AND id_usuario NOT IN (SELECT p.fk_usuario FROM pedido p)`));     
+    res.json(await query(`DELETE FROM usuario WHERE id_usuario = ${req.params.id} AND id_usuario NOT IN (SELECT p.fk_usuario FROM pedido p)`));     
   } catch (error) {
     res.send(error.sqlMessage);
   }
