@@ -19,6 +19,7 @@ var proveedorRouter = require('./routes/proveedor');
 var inventarioRouter = require('./routes/inventario');
 var auditoriaRouter = require('./routes/auditoria');
 var facturaRouter = require('./routes/factura');
+var auditoriaRouter = require('./routes/auditoria');
 
 var app = express();
 
@@ -63,6 +64,7 @@ app.use('/admin/proveedores', proveedorRouter);
 app.use('/admin/inventario', inventarioRouter);
 app.use('/admin/auditoria', auditoriaRouter);
 app.use('/admin/factura', facturaRouter);
+app.use('admin/auditoria', auditoriaRouter);
 
 
 // catch 404 and forward to error handler
