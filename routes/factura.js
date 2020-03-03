@@ -11,8 +11,9 @@ const query = util.promisify(db.query).bind(db);
 /*Consultar todas las facturas. */
 router.get('/', async (req, res, next) => {
   try {
-    const result = await query("SELECT * FROM v_facturas");
-    res.json(result);
+    const result = await query("SELECT usuario.nombres, usuario.apellidos, pedido.total, factura.fecha, pedido.completado FROM factura INNER JOIN pedido ON factura.fk_ipedido = pedido.id_pedido INNER JOIN usuario ON pedido.fk_usuario = usuario.id_usuario");
+    
+    res.render('admin/factura', { facturas: result, layout: 'admin', title: 'Factura' })
     
   } catch (error) {
     console.log(error);

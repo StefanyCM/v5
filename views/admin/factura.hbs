@@ -1,0 +1,127 @@
+<div class="container-fluid">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Factura</h1>
+  </div>
+</div>
+<div class="col-xl-12">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                aria-describedby="dataTable_info" style="width: 100%;">
+                <thead>
+                  <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Position: activate to sort column ascending" style="width: 120px;">Nombre Usuario</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Office: activate to sort column ascending" style="width: 86px;">Total</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Age: activate to sort column ascending" style="width: 33px;">Fecha</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Start date: activate to sort column ascending" style="width: 80px;">Estado</th>
+                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      style="width: 50px;">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each facturas}}
+                  <tr role="row" class="odd">
+                    <td>{{nombres}} {{apellidos}} </td>
+                    <td>${{formatCurrency total}}</td>
+                    <td>{{moment fecha "MMM-DD-YYYY"}}</td>
+                    <td>
+                      {{#ifEquals completado '1'}}
+                        Disponible
+                      {{else}}
+                        No disponible
+                      {{/ifEquals}}
+                    </td>
+
+                     <td>
+                      <div id="actionsContainer">
+                        <div id="actiosItems">
+                          <span id="span1"> <a class="nav-link" href="#" onclick="detalleFactura({{id_factura}}, '{{nombre}}')">
+                              <i class="fas fa-fw fa-search"></i>
+                            </a>
+                          </span>
+                          
+                        </div>
+                      </div>
+                    </td>
+                   
+                  </tr>
+                     
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function guardar() {
+    fetch('/admin/categorias', {
+      method: 'POST',
+      body: JSON.stringify({ nombre: document.getElementById("cat_nombre").value }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+      console.log(result);
+      $('#CategoryModal').modal('hide');
+        location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+function detalleFactura(id_factura {
+    fetch('/admin/factura', {
+      method: 'GET',
+    }).then(result => {
+  
+      
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+  
+
+
+
+  function actualizar(id) {
+    fetch(`/admin/categorias/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ nombre: document.getElementById("cat_nombre").value }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(result => {
+        $('#CategoryModal').modal('hide');
+        location.reload();
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+
+
+  function eliminar(id) {
+   fetch(`/admin/categorias/${id}`, {
+      method: 'DELETE'
+    }).then(result => {
+      console.log(result);
+      location.reload();
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+
+</script>
