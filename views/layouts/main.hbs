@@ -1,10 +1,144 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    {{{body}}}
-  </body>
+!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>CompuNet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        {{> header}}
+        <div class="breadcrumb-area">
+            <div class="container">
+                <ol class="breadcrumb breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">Inicio</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="main-shop-page ptb-80">
+            <div class="container">
+                <div class="row">
+
+                    {{> sidebar}}
+                    {{{body}}}
+                </div>
+            </div>
+            {{> footer}}
+
+            <div class="main-product-thumbnail quick-thumb-content">
+
+            </div>
+        </div>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-firestore.js"></script>
+
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyD-OHN9qiL5GVXJ9aIx6-PmaxrcSiT1qHs",
+                authDomain: "compunet-florencia.firebaseapp.com",
+                databaseURL: "https://compunet-florencia.firebaseio.com",
+                projectId: "compunet-florencia",
+                storageBucket: "compunet-florencia.appspot.com",
+                messagingSenderId: "349534666072",
+                appId: "1:349534666072:web:6ba235193b848ede4cb92d"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+
+            let db = firebase.firestore();
+
+            db.collection("categorias").get().then((querySnapshot) => {
+                let toAddCategories = document.createDocumentFragment();
+                querySnapshot.forEach((doc) => {
+                    let category = document.createElement('ul');
+                    category.className = "csidbar-style";
+                    category.innerHTML = `
+          <li class="form-check">
+            <input class="form-check-input" value="#" id="${doc.id}" type="checkbox">
+            <label class="form-check-label" for="${doc.id}">${doc.data()['nombre']}</label>
+          </li>
+          `
+                    toAddCategories.appendChild(category);
+                })
+                document.getElementById('categories').appendChild(toAddCategories);
+            });
+
+            db.collection("marcas").get().then((querySnapshot) => {
+                let toAddbrands = document.createDocumentFragment();
+                querySnapshot.forEach((doc) => {
+                    let brand = document.createElement('ul');
+                    brand.className = "sidbar-style";
+                    brand.innerHTML = `
+          <li class="form-check">
+            <input class="form-check-input" value="#" type="checkbox">
+            <label class="form-check-label">${doc.data()['nombre']}</label>
+          </li>
+          `
+                    toAddbrands.appendChild(brand);
+                })
+                document.getElementById('brands').appendChild(toAddbrands);
+            });
+
+            db.collection("productos").get()
+                .then((querySnapshot) => {
+                    document.getElementById('count-products').innerText = `Mostrando ${querySnapshot.size} productos`;
+                    let toAdd = document.createDocumentFragment();
+                    querySnapshot.forEach((doc) => {
+                        let product = document.createElement('div');
+                        product.className = "col-lg-4 col-md-4 col-sm-6 col-6";
+                        product.innerHTML =
+                            `<div class="single-ponno-product">
+            <div class="pro-img">
+              <a href="product-details.html">
+                <img class="primary-img" src="${doc.data()['imagen']}" width="200" heigh="200">
+              </a>
+              <div class="pro-actions-link">
+                <a href="compare.html" title="Compare">
+                  <span class="icon icon-MusicMixer"></span>
+                </a>
+                <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View">
+                  <span class="icon icon-Eye"></span>
+                </a>
+              </div>
+              <a class="sticker-new " href="wishlist.html">
+                <span class="ti-heart"></span>
+              </a>
+              <span class="sticker-sale">Nuevo</span>
+            </div>
+            <div class="pro-content">
+              <div class="pro-info">
+                <h4>
+                  <a href="#">${doc.data()['nombre']}</a>
+                </h4>
+                <p>
+                  <span class="special-price">${doc.data()['precio']}</span>
+                </p>
+              </div>
+              <div class="pro-add-cart">
+                <a href="#" title="Add to Cart">Anadir al Carrito</a>
+              </div>
+            </div>
+          </div>`;
+                        toAdd.appendChild(product);
+                    });
+                    document.getElementById('products').appendChild(toAdd);
+                });
+
+        </script>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+</body>
+
 </html>

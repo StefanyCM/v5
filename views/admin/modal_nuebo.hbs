@@ -1,0 +1,101 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputFirstname">First name</label>
+                        <input type="text" class="form-control" id="inputFirstname" placeholder="First name">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputLastname">Last name</label>
+                        <input type="text" class="form-control" id="inputLastname" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputAddressLine1">Address</label>
+                        <input type="text" class="form-control" id="inputAddressLine1" placeholder="Street Address">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputAddressLine2">Address (Line 2)</label>
+                        <input type="text" class="form-control" id="inputAddressLine2" placeholder="Line 2">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity" placeholder="City">
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="inputState">State</label>
+                        <input type="text" class="form-control" id="inputState" placeholder="State">
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="inputPostalCode">Postal Code</label>
+                        <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputContactNumber">Contact Number</label>
+                        <input type="number" class="form-control" id="inputContactNumber" placeholder="Contact Number">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputWebsite">Website</label>
+                        <input type="text" class="form-control" id="inputWebsite" placeholder="Website">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary px-4 float-right">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:1250px" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar item</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="producto">
+         
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label for="inputCity">Referencia </label>
+              <input type="text" class="form-control" id="precioV" placeholder="Referencia">
+            </div>
+            <div class="col-sm-3">
+              <label for="inputState">Precio Compra</label>
+                <div class="col-sm-10">
+             
+             <input type="number" class="form-control" id="precioV" placeholder="preco compra">
+            </div>
+            </div>
+            <div class="col-sm-3">
+              <label for="inputPostalCode">Proveedores</label>
+                <select class="browser-default custom-select">
+                <option selected>Proveedores disponibles</option>
+                {{#each proveedor}}
+                <option value="1" id="proveedores">{{nombre}} </option>
+                {{/each}}
+              </select>
+          
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary px-4 float-right" href="#" id="traerItems" onclick="traerItems()" >Save</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="cerrar()">Cancelar</button>
+        <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
+      </div>
+    </div>
+  </div>
+</div>
