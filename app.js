@@ -82,9 +82,9 @@ app.use('admin/auditoria', auditoriaRouter);
 app.use('/', indexRouterStore);
 app.use('/carrito', carritoRouterStore);
 app.use('/contacto', contactoRouterStore);
-app.use('/admin/nosotros', nosotrosRouterStore);
-app.use('/admin/ofertas', ofertasRouterStore);
-app.use('/admin/servicios', serviciosRouterStore);
+app.use('/nosotros', nosotrosRouterStore);
+app.use('/ofertas', ofertasRouterStore);
+app.use('/servicios', serviciosRouterStore);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
