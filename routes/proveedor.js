@@ -8,7 +8,7 @@ const query = util.promisify(db.query).bind(db);
 
 /* Obtener listado de proveedor. */
 router.get('/', async (req, res, next) => {
-  const result = await query('SELECT * FROM proveedor');
+  const result = await query('SELECT nit, razon_social, telefono, direccion FROM proveedor WHERE activo = 1');
   res.render('admin/proveedores', { proveedores: result, layout: 'admin', title: 'Proveedores' })
 });
 
