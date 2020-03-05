@@ -3,11 +3,38 @@
         <div class="sidebar-categorie mb-30">
             <h3 class="sidebar-title">Categorias</h3>
             <div id="categories"></div>
-
+            <ul class=" csidbar-style">
+                {{#each categorias}}
+                <li class="form-check">
+                    <input class="form-check-input-cat" id="{{id_categoria}}" type="checkbox"onclick="filtrearCategoria(this)">
+                    <label class="form-check-label-cat" for="{{id_categoria}}">{{nombre}}<label>
+                </li>
+                {{/each}}
+            </ul>
         </div>
     </div>
     <div class="sidebar-categorie mb-30">
         <h3 class="sidebar-title">Marcas</h3>
+        <ul class=" csidbar-style">
+            {{#each marcas}}
+            <li class="form-check">
+                <input class="form-check-input-marca" value="#" id="{{id_marca}}" type="checkbox" onclick="filtrearMarca(this)">
+                <label class="form-check-label-marca" for="{{id_marca}}">{{nombre}}<label>
+            </li>
+            {{/each}}
+        </ul>
         <div id="brands"></div>
     </div>
 </div>
+
+<script>
+
+   function filtrearMarca(e) {
+       window.location.href = `?marca=${e.id}`;
+   }
+   
+   function filtrearCategoria(e) {
+       window.location.href = `?categoria=${e.id}`;
+   }
+
+</script>
