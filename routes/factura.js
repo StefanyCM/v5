@@ -11,7 +11,7 @@ const query = util.promisify(db.query).bind(db);
 /*Consultar todas las facturas. */
 router.get('/', async (req, res, next) => {
   try {
-    const result = await query("SELECT usuario.nombres, usuario.apellidos, pedido.total, factura.fecha, pedido.completado FROM factura INNER JOIN pedido ON factura.fk_ipedido = pedido.id_pedido INNER JOIN usuario ON pedido.fk_usuario = usuario.id_usuario");
+    const result = await query("SELECT factura.id_factura, usuario.nombres, usuario.apellidos, pedido.total, factura.fecha, pedido.completado FROM factura INNER JOIN pedido ON factura.fk_ipedido = pedido.id_pedido INNER JOIN usuario ON pedido.fk_usuario = usuario.id_usuario");
     
     res.render('admin/factura', { facturas: result, layout: 'admin', title: 'Factura' })
     
@@ -109,7 +109,7 @@ router.get('/:id', async (req, res, next) => {
     "factura.id_factura = ?", [req.params.id],
   );
   let join = await joinjs.default.map(result, _facturaMap, 'facturaMap', 'pedido_');
-  res.json(join);
+  res.json(join[0]);
 });
 
 

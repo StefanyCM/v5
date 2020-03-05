@@ -24,7 +24,7 @@
                       aria-label="Age: activate to sort column ascending" style="width: 33px;">Fecha</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       aria-label="Start date: activate to sort column ascending" style="width: 80px;">Estado</th>
-                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                       style="width: 50px;">Acciones</th>
                   </tr>
                 </thead>
@@ -36,26 +36,27 @@
                     <td>{{moment fecha "MMM-DD-YYYY"}}</td>
                     <td>
                       {{#ifEquals completado '1'}}
-                        Disponible
+                      Disponible
                       {{else}}
-                        No disponible
+                      No disponible
                       {{/ifEquals}}
                     </td>
 
-                     <td>
+                    <td>
                       <div id="actionsContainer">
                         <div id="actiosItems">
-                          <span id="span1"> <a class="nav-link" href="#" onclick="detalleFactura({{id_factura}}, '{{nombre}}')">
+                          <span id="span1"> <a data-dismiss="modal" class="nav-link" href="#"
+                              onclick="actualizaractionForm({{id_factura}})">
                               <i class="fas fa-fw fa-search"></i>
                             </a>
                           </span>
-                          
+
                         </div>
                       </div>
                     </td>
-                   
+
                   </tr>
-                     
+
                   {{/each}}
                 </tbody>
               </table>
@@ -63,6 +64,92 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="detallePedidoModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalle del pedido</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="row p-5">
+                    <div class="col-md-6">
+                      <img src="http://via.placeholder.com/400x90?text=logo">
+                    </div>
+
+                    <div class="col-md-6 text-right">
+
+                      <p class="font-weight-bold mb-1">Compunet</p>
+                      <p class="text-muted">Due to: 4 Dec, 2019</p>
+                    </div>
+                  </div>
+
+                  <hr class="my-5">
+
+                  <div class="row pb-5 p-5">
+                    <div class="col-md-6">
+                      <p class="font-weight-bold mb-4">Informacion Cliente</p>
+                      <p id="nombres" class="mb-1"></p>
+                      <p id="cedula"></p>
+                      <p id="telefono" class="mb-1"></p>
+                      <p id="email" class="mb-1"></p>
+                    </div>
+
+                    <div class="col-md-6 text-right">
+                      <p class="font-weight-bold mb-4">Detalles de Factura</p>
+                      <p class="mb-1"><span class="text-muted">ID: </span> <span id="id_factura"></span> </p>
+                      <p class="mb-1"><span class="text-muted">FECHA: </span> <span id="fecha_factura"></span></p>
+                    </div>
+                  </div>
+
+                  <div class="row p-5">
+                    <div class="col-md-12">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th class="border-0 text-uppercase small font-weight-bold">ID</th>
+                            <th class="border-0 text-uppercase small font-weight-bold">Item</th>
+                            <th class="border-0 text-uppercase small font-weight-bold">Descripcion</th>
+                             <th class="border-0 text-uppercase small font-weight-bold">Precio</th>
+                          
+                          </tr>
+                        </thead>
+                        <tbody id="productList">
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row-reverse bg-dark text-white p-4">
+                    <div class="py-3 px-5 text-right">
+                      <div class="mb-2"> Total</div>
+                      <div id ="total" class="h2 font-weight-light"></div>
+                    </div>
+
+                
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+      <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
     </div>
   </div>
 </div>
@@ -77,24 +164,80 @@
     }).then(result => {
       console.log(result);
       $('#CategoryModal').modal('hide');
-        location.reload();
+      location.reload();
     }).catch(err => {
       console.log(err);
     });
   }
 
-function detalleFactura(id_factura {
+  function detalleFactura(id_factura) {
     fetch('/admin/factura', {
       method: 'GET',
     }).then(result => {
-  
-      
+
     }).catch(err => {
       console.log(err);
     });
   }
+
+  function actualizaractionForm(id) {
+    $('#detallePedidoModal').on('hidden.bs.modal', function () {
+
+      document.getElementById("id_factura").innerText = "";
+      document.getElementById("fecha_factura").innerText = "";
+      document.getElementById("nombres").innerText = "";
+      document.getElementById("cedula").innerText = "";
+      document.getElementById("telefono").innerText = "";
+      document.getElementById("mail").innerText = "";
+      document.getElementById("total").innerText = "";
+
+    });
+    console.log("entro actualizar Form");
+    $('#detallePedidoModal').modal('show');
+    fetch('/admin/factura/' + id, {
+      method: 'GET'
+
+    }).then(data => {
+
+      return data.json();
+    })
+      .then(result => {
+        console.log(JSON.stringify(result));
+
+        document.getElementById("id_factura").innerText = result.id;
+        document.getElementById("fecha_factura").innerText = result.fecha_factura;
+        document.getElementById("nombres").innerText = result.cliente_nombres;
+        document.getElementById("cedula").innerText = result.cliente_cedula;
+        document.getElementById("telefono").innerText = result.cliente_telefono;
+        document.getElementById("total").innerText = result.monto;
+
   
 
+        for (i = 0; i <= result.productos.length; i++) {
+          var x = document.getElementById('productList').insertRow(i);
+          var a = x.insertCell(0);
+          var b = x.insertCell(1);
+          var c = x.insertCell(2);
+      
+          var f = x.insertCell(3);
+
+          a.innerHTML = `<tr> <td>${result.productos[i].id}</td>`;
+          b.innerHTML = `<td>$${result.productos[i].nombre}</td>`;
+          c.innerHTML = `<td> ${result.productos[i].descripcion}</td>`;
+          f.innerHTML = `<td>$${result.productos[i].precio }</td> </tr>`;
+         
+          
+        console.log(a);
+        }
+
+        
+
+
+      }).catch(err => {
+        console.log(err);
+      });
+
+  }
 
 
   function actualizar(id) {
@@ -103,8 +246,8 @@ function detalleFactura(id_factura {
       body: JSON.stringify({ nombre: document.getElementById("cat_nombre").value }),
       headers: { 'Content-Type': 'application/json' }
     }).then(result => {
-        $('#CategoryModal').modal('hide');
-        location.reload();
+      $('#CategoryModal').modal('hide');
+      location.reload();
     }).catch(err => {
       console.log(err);
     });
@@ -113,7 +256,7 @@ function detalleFactura(id_factura {
 
 
   function eliminar(id) {
-   fetch(`/admin/categorias/${id}`, {
+    fetch(`/admin/categorias/${id}`, {
       method: 'DELETE'
     }).then(result => {
       console.log(result);
