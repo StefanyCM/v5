@@ -17,7 +17,6 @@ var categoriaRouter = require('./routes/categoria');
 var marcaRouter = require('./routes/marca');
 var proveedorRouter = require('./routes/proveedor');
 var inventarioRouter = require('./routes/inventario');
-var auditoriaRouter = require('./routes/auditoria');
 var facturaRouter = require('./routes/factura');
 var auditoriaRouter = require('./routes/auditoria');
 
@@ -73,7 +72,6 @@ app.use('/admin/categorias', categoriaRouter);
 app.use('/admin/marcas', marcaRouter);
 app.use('/admin/proveedores', proveedorRouter);
 app.use('/admin/inventario', inventarioRouter);
-app.use('/admin/auditoria', auditoriaRouter);
 app.use('/admin/factura', facturaRouter);
 app.use('admin/auditoria', auditoriaRouter);
 
