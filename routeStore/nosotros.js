@@ -5,16 +5,12 @@ const db = require('../utils/database');
 
 // Promesas nativas
 const query = util.promisify(db.query).bind(db);
-
 /* GET home page. */
-
   router.get('/',async function(req, res, next) {
     const categorias = await query('SELECT * FROM categoria');
     const marcas = await query('SELECT * FROM marca');
   
-   res.render('nosotros', { productos: result, categorias: categorias, marcas:marcas, layout: 'main', title: 'Dashboard' });
-  
-
+   res.render('nosotros', {categorias: categorias, marcas:marcas, layout: 'main', title: 'Dashboard'});
 });
 
 module.exports = router;
