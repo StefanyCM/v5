@@ -36,23 +36,24 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({
-    defaultLayout: 'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
-    partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs',
-    helpers: { ...helpers,
-      toJSON : (object) => {
-        return JSON.stringify(object);
-      },
-      ifEquals: (arg1, arg2, options) => {
-        return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-      },
-      formatCurrency: (value) => {
-        return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
-      }
+  defaultLayout: 'main',
+  layoutsDir: path.join(app.get('views'), 'layouts'),
+  partialsDir: path.join(app.get('views'), 'partials'),
+  extname: '.hbs',
+  helpers: {
+    ...helpers,
+    toJSON: (object) => {
+      return JSON.stringify(object);
+    },
+    ifEquals: (arg1, arg2, options) => {
+      return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+    },
+    formatCurrency: (value) => {
+      return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
     }
-  })
-  
+  }
+})
+
 )
 app.set('view engine', '.hbs')
 app.use(logger('dev'));
@@ -77,8 +78,6 @@ app.use('/admin/factura', facturaRouter);
 app.use('admin/auditoria', auditoriaRouter);
 
 
-
-
 app.use('/', indexRouterStore);
 app.use('/carrito', carritoRouterStore);
 app.use('/contacto', contactoRouterStore);
@@ -87,12 +86,12 @@ app.use('/ofertas', ofertasRouterStore);
 app.use('/servicios', serviciosRouterStore);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
