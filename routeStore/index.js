@@ -8,15 +8,16 @@ const query = util.promisify(db.query).bind(db);
 router.get('/',async function(req, res, next) {
 
   var result;
-  if(req.query.marca){
+  console.log(req.query.ofertas);
+  if(req.query.ofertas){
+    console.log('ofertas')
+    result = await query('select * from producto WHERE oferta = 1;');
+  }
+  else if(req.query.marca){
     console.log("si trae marca" + req.query.marca)
     result = await query('select * from producto WHERE fk_id_marca = ?', [req.query.marca]);
-  } else {
-    console.log("no trae marca")
-    result = await query('select * from producto');
   }
-
- if(req.query.categoria){
+ else if(req.query.categoria){
   console.log("si trae categoria" + req.query.categoria)
     result = await query('select * from producto WHERE fk_id_categoria = ?', [req.query.categoria]);
   } else {
