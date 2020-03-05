@@ -48,7 +48,8 @@
                                     </p>
                                 </div>
                                 <div class="pro-add-cart">
-                                    <a href="carrito.hbs" title="Add to Cart">Anadir al Carrito</a>
+                                    <a href="#" onclick="addcarrito({{toJSON this}})" title="Add to Cart">Anadir al
+                                        Carrito</a>
                                 </div>
                             </div>
                         </div>
@@ -59,3 +60,15 @@
         </div>
     </div>
 </div>
+<script>
+
+    function addcarrito(r) {
+        if(Object.prototype.hasOwnProperty.call(localStorage, r.id_producto)){
+            r.cantidad = JSON.parse(localStorage.getItem(r.id_producto)).cantidad += 1;
+            localStorage.setItem(r.id_producto, JSON.stringify(r))
+        } else {
+            r.cantidad = 1;
+            localStorage.setItem(r.id_producto, JSON.stringify(r))
+        }
+    }
+</script>
