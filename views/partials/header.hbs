@@ -214,16 +214,16 @@
                       <div id="imagen" class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..."
                           class="img-responsive" /></div>
                       <div class="col-sm-10">
-                        <h4 id="nombre">nombre</h4>
+                        <h4 id="nombre"></h4>
                         <p id="descripcion"> Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu
                           fugiat nulla pariatur.
                           Lorem ipsum dolor sit amet.</p>
                       </div>
                     </div>
                   </td>
-                  <td id="precio" data-th="Precio">precio</td>
-                  <td id="cantidad" data-th="precioPrecio">cantidad</td>
-                  <td data-th="subtotal" class="text-center">subtotal</td>
+                  <td id="precio" data-th="Precio"></td>
+                  <td id="cantidad" data-th="Cantidad"></td>
+                  <td data-th="Subtotal" class="text-center"></td>
 
                 </tr>
 
@@ -235,7 +235,7 @@
                   <td><button type="button" data-dismiss="modal" href="#" class="btn btn-warning"><i
                         class="fa fa-angle-left"></i> Continuar Comprando</button></td>
                   <td colspan="2" class="hidden-xs"></td>
-                  <td id="total" class="hidden-xs text-center"><strong>total</strong></td>
+                  <td id="total" class="hidden-xs text-center"><strong></strong></td>
                   <td><a href="#" onclick="guardar()" class="btn btn-success btn-block">Pagar <i
                         class="fa fa-angle-right"></i></a></td>
                 </tr>
@@ -264,27 +264,48 @@
     var precio = 120.00;
     document.getElementById('total-pro').innerHTML = `${totalItems} item <br><span>$${total}</span>`;
 
+    console.log(totalItems)
+
+
     function verCarrito() {
       $("#CategoryModal").modal("show");
-
-
       $('#CategoryModal').on('hidden.bs.modal', function () {
         document.getElementById("nombre").innerText = "";
-        document.getElementById("descripcion").innerText = "";
+        document.getElementById("descripcio").innerText = "";
         document.getElementById("precio").innerText = "";
         document.getElementById("cantidad").innerText = "";
         document.getElementById("subtotal").innerText = "";
         document.getElementById("total").innerText = "";
       });
 
+
+
       for (var i = 0; i <= localStorage.length - 1; i++) {
         var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        document.getElementById("nombre").innerText = item.nombre;
-        document.getElementById("precio").innerText = item.precio_venta;
-        document.getElementById("cantidad").innerText = totalItems;
-        document.getElementById("subtotal").innerText = (item.precio_venta * 0.15) + item.precio_venta;
+
+
         document.getElementById("total").innerText = ((item.precio_venta * 0.15) + item.precio_venta) * totalItems;
-        document.getElementById("ptroduct-lis").append(`<p>${item.nombre}</p>`);
+        var x = document.getElementById('productList').insertRow(i);
+        var a = x.insertCell(0);
+        var b = x.insertCell(1);
+        var c = x.insertCell(2);
+         var d = x.insertCell(3);
+        var e = x.insertCell(4);
+
+        var f = x.insertCell(3);
+        a.innerHTML = `<tr> <td data-th="Product">
+                    <div class="row">
+                      <div id="imagen" class="col-sm-2 hidden-xs"> <img src=${item.}alt="..."
+                          class="img-responsive" /></div>`;
+        b.innerHTML = `<div class="col-sm-10">
+                        <h4 id="nombre">$${item.nombre}</h4></div>`;
+        c.innerHTML = `<td id="precio" data-th="Precio"> ${item.precio_venta}</td>`;
+        d.innerHTML = `<td id="cantidad" data-th="Cantidad">$${}</td>`;
+        e.innerHTML = `< data-th="Subtotal" class="text-center">$${(item.precio_venta * 0.14) + item.precio_venta}</td>`;
+        
+        document.getElementById("ptroduct-lis").append(`<p>${item.nombre}</p>`)
+
+
       }
 
     }
