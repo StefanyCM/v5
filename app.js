@@ -27,7 +27,6 @@ var indexRouterStore = require('./routeStore/index');
 var carritoRouterStore = require('./routeStore/carrito');
 var contactoRouterStore = require('./routeStore/contacto');
 var nosotrosRouterStore = require('./routeStore/nosotros');
-var ofertasRouterStore = require('./routeStore/ofertas');
 var serviciosRouterStore = require('./routeStore/servicios');
 
 var app = express();
@@ -80,7 +79,6 @@ app.use('/', indexRouterStore);
 app.use('/carrito', carritoRouterStore);
 app.use('/contacto', contactoRouterStore);
 app.use('/nosotros', nosotrosRouterStore);
-app.use('/ofertas', ofertasRouterStore);
 app.use('/servicios', serviciosRouterStore);
 
 // catch 404 and forward to error handler

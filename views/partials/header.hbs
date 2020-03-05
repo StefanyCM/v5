@@ -40,62 +40,24 @@
                 </a>
                 <ul class="dropdown cart-box-width">
                   <li>
-                    <div class="single-cart-box">
-                      <div class="cart-img">
-                        <a href="#">
-                          <img src="#" alt="cart-image">
-                        </a>
-                        <span class="pro-quantity">1X</span>
-                      </div>
-                      <div class="cart-content">
-                        <h6>
-                          <a href="#">Printed Summer Red </a>
-                        </h6>
-                        <span class="cart-price">27.45</span>
-                        <span>Size: S</span>
-                        <span>Color: Yellow</span>
-                      </div>
-                      <a class="del-icone" href="#">
-                        <span class="ti-close"></span>
-                      </a>
-                    </div>
-                    <div class="single-cart-box">
-                      <div class="cart-img">
-                        <a href="#">
-                          <img src="http://placehold.it/700x400" alt="cart-image">
-                        </a>
-                        <span class="pro-quantity">1X</span>
-                      </div>
-                      <div class="cart-content">
-                        <h6>
-                          <a href="#">Printed Round Neck</a>
-                        </h6>
-                        <span class="cart-price">45.00</span>
-                        <span>Size: XL</span>
-                        <span>Color: Green</span>
-                      </div>
-                      <a class="del-icone" href="#">
-                        <span class="ti-close"></span>
-                      </a>
-                    </div>
+                    <div id="CategoryModal" class="single-cart-box">
 
+                    </div>
                     <div class="cart-footer">
                       <ul class="price-content">
                         <li>Subtotal
-                          <span>$57.95</span>
+                          <span id="subtotal"></span>
                         </li>
-                        <li>Shipping
-                          <span>$7.00</span>
+                        <li>Descuento
+                          <span id="descuento"></span>
                         </li>
-                        <li>Taxes
-                          <span>$0.00</span>
-                        </li>
+
                         <li>Total
-                          <span>$64.95</span>
+                          <span id="total"></span>
                         </li>
                       </ul>
                       <div class="cart-actions text-center">
-                        <a class="cart-checkout" href="#">Checkout</a>
+                        <a  type="button" data-dismiss="modal"class="cart-checkout" href="#">Checkout</a>
                       </div>
                     </div>
                   </li>
@@ -116,7 +78,7 @@
                   <a href="/">Inicio</a>
                 </li>
                 <li>
-                  <a href="ofertas">Ofertas</a>
+                  <a href="/?ofertas=1">Ofertas</a>
                 </li>
                 <li>
                   <a href="servicios">Servicios</a>
@@ -164,59 +126,6 @@
       </div>
     </div>
 
-    <div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
-      <div class="modal-dialog modal-lg" style="width:1250px" role="document">
-        <div class="modal-content">
-          <div class="container">
-            <table id="cart" class="table table-hover table-condensed">
-              <thead>
-                <tr>
-                  <th style="width:50%">Producto</th>
-                  <th style="width:10%">Precio</th>
-                  <th style="width:8%">Cantidad</th>
-                  <th style="width:22%" class="text-center">Subtotal</th>
-
-                </tr>
-              </thead>
-              <tbody id="producList">
-                <tr>
-                  <td data-th="Product">
-                    <div class="row">
-                      <div id="imagen" class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..."
-                          class="img-responsive" /></div>
-                      <div class="col-sm-10">
-                        <h4 id="nombre"></h4>
-                        <p id="descripcion"> Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu
-                          fugiat nulla pariatur.
-                          Lorem ipsum dolor sit amet.</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td id="precio" data-th="Precio"></td>
-                  <td id="cantidad" data-th="Cantidad"></td>
-                  <td data-th="Subtotal" class="text-center"></td>
-
-                </tr>
-
-              </tbody>
-              <tfoot>
-                <tr class="visible-xs">
-                </tr>
-                <tr>
-                  <td><button type="button" data-dismiss="modal" href="#" class="btn btn-warning"><i
-                        class="fa fa-angle-left"></i> Continuar Comprando</button></td>
-                  <td colspan="2" class="hidden-xs"></td>
-                  <td id="total" class="hidden-xs text-center"><strong></strong></td>
-                  <td><a href="#" onclick="guardar()" class="btn btn-success btn-block">Pagar <i
-                        class="fa fa-angle-right"></i></a></td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-
-        </div>
-      </div>
-    </div>
   </header>
 
 
@@ -239,44 +148,26 @@
 
 
     function verCarrito() {
-      $("#CategoryModal").modal("show");
-      $('#CategoryModal').on('hidden.bs.modal', function () {
-        document.getElementById("nombre").innerText = "";
-        document.getElementById("descripcio").innerText = "";
-        document.getElementById("precio").innerText = "";
-        document.getElementById("cantidad").innerText = "";
-        document.getElementById("subtotal").innerText = "";
-        document.getElementById("total").innerText = "";
-      });
-
 
 
       for (var i = 0; i <= localStorage.length - 1; i++) {
         var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
-
+        document.getElementById("subtotal").innerText = item.precio_venta;
 
         document.getElementById("total").innerText = ((item.precio_venta * 0.15) + item.precio_venta) * totalItems;
-        var x = document.getElementById('productList').insertRow(i);
-        var a = x.insertCell(0);
-        var b = x.insertCell(1);
-        var c = x.insertCell(2);
-         var d = x.insertCell(3);
-        var e = x.insertCell(4);
-
-        var f = x.insertCell(3);
-        a.innerHTML = `<tr> <td data-th="Product">
-                    <div class="row">
-                      <div id="imagen" class="col-sm-2 hidden-xs"> <img src=${item.}alt="..."
-                          class="img-responsive" /></div>`;
-        b.innerHTML = `<div class="col-sm-10">
-                        <h4 id="nombre">$${item.nombre}</h4></div>`;
-        c.innerHTML = `<td id="precio" data-th="Precio"> ${item.precio_venta}</td>`;
-        d.innerHTML = `<td id="cantidad" data-th="Cantidad">$${}</td>`;
-        e.innerHTML = `< data-th="Subtotal" class="text-center">$${(item.precio_venta * 0.14) + item.precio_venta}</td>`;
-        
-        document.getElementById("ptroduct-lis").append(`<p>${item.nombre}</p>`)
 
 
+
+        document.getElementById("CategoryModal").innerHTML += `
+                      <div class="cart-img">
+                        <a id="imagen" href="#">
+                          <img src=" ${item.imagen}"alt="cart-image">
+                        </a>
+                        <span class="pro-quantity">1X</span>
+                      </div> <div class="cart-content">
+                        <h6 >
+                          <a id="nombre"  href="#">${item.nombre} </a> </h6>
+                        <span ud="precio"class="cart-price">${item.precio_venta} </span></div>`;
       }
 
     }
