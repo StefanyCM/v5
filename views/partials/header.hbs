@@ -38,26 +38,26 @@
                   <span id="total-pro" class="total-pro">
                   </span>
                 </a>
-                <ul  class="dropdown cart-box-width">
+                <ul class="dropdown cart-box-width">
                   <li>
                     <div id="CategoryModal" class="single-cart-box">
-                      
+
                     </div>
-                   <div class="cart-footer">
+                    <div class="cart-footer">
                       <ul class="price-content">
-                        <li >Subtotal
+                        <li>Subtotal
                           <span id="subtotal"></span>
                         </li>
                         <li>Descuento
                           <span id="descuento"></span>
                         </li>
-                       
+
                         <li>Total
                           <span id="total"></span>
                         </li>
                       </ul>
                       <div class="cart-actions text-center">
-                        <a class="cart-checkout" href="#">Checkout</a>
+                        <a  type="button" data-dismiss="modal"class="cart-checkout" href="#">Checkout</a>
                       </div>
                     </div>
                   </li>
@@ -177,42 +177,26 @@
 
 
     function verCarrito() {
-      $("#CategoryModal").modal("show");
-      $('#CategoryModal').on('hidden.bs.modal', function () {
-        document.getElementById("nombre").innerText = "";
-        document.getElementById("descripcio").innerText = "";
-        document.getElementById("precio").innerText = "";
-        document.getElementById("descuento").innerText = "";
-        document.getElementById("subtotal").innerText = "";
-        document.getElementById("total").innerText = "";
-      });
+
+
       for (var i = 0; i <= localStorage.length - 1; i++) {
         var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
-
         document.getElementById("subtotal").innerText = item.precio_venta;
-          
-        document.getElementById("total").innerText = ((item.precio_venta * 0.15) + item.precio_venta) * totalItems;
-        
-        var a = x.insertCell(0);
-        var b = x.insertCell(1);
-        var c = x.insertCell(2);
 
-         a.innerHTML = `
+        document.getElementById("total").innerText = ((item.precio_venta * 0.15) + item.precio_venta) * totalItems;
+
+
+
+        document.getElementById("CategoryModal").innerHTML += `
                       <div class="cart-img">
                         <a id="imagen" href="#">
                           <img src=" ${item.imagen}"alt="cart-image">
                         </a>
                         <span class="pro-quantity">1X</span>
-                      </div> `;
-        b.innerHTML = `<div class="cart-content">
+                      </div> <div class="cart-content">
                         <h6 >
-                          <a id="nombre"  href="#">${item.nombre} </a>`;
-        c.innerHTML = `</h6>
+                          <a id="nombre"  href="#">${item.nombre} </a> </h6>
                         <span ud="precio"class="cart-price">${item.precio_venta} </span></div>`;
-       
-        document.getElementById("ptroduct-lis").append(`<p>${item.nombre}</p>`)
-
-
       }
 
     }
