@@ -16,54 +16,46 @@
             </ul>
             <span class="show-items">Productos nuevos</span>
         </div>
-
     </div>
-
     <div class="shop-area mb-all-40">
 
         <div class="tab-content">
             <div id="grid-v" class=" tab-pane fade show active">
                 <div class="row border-hover-effect ">
-                    
-                        {{#each productos}}
+                    {{#each productos}}
                     <div class=" col-lg-4 col-md-4 col-sm-6 col-6">
-                    <div class="single-ponno-product">
-                        <div class="pro-img">
-                            <a href="product-details.html">
-                                <img class="primary-img" src="{{imagen}}" alt="single-product">
-                            </a>
-                            <div class="pro-actions-link">
-                                <a href="compare.html" title="Compare">
-                                    <span class="icon icon-MusicMixer"></span>
+                        <div class="single-ponno-product">
+                            <div class="pro-img">
+                                <a href="product-details.html">
+                                    <img class="primary-img" src="{{imagen}}" alt="single-product">
                                 </a>
-                                <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View">
-                                    <span class="icon icon-Eye"></span>
-                                </a>
+                                <div class="pro-actions-link">
+                                    <a href="compare.html" title="Compare">
+                                        <span class="icon icon-MusicMixer"></span>
+                                    </a>
+                                    <a href="#" data-toggle="modal" data-target="#myModal" title="Quick View">
+                                        <span class="icon icon-Eye"></span>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="pro-content">
-                            <div class="pro-info">
-                                <h4>
-                                    <a id="nombre">{{nombre}}</a>
-                                </h4>
-                                <p>
-                                    <span class="special-price" id="precio_venta">{{precio_venta}}</span>
-                                </p>
-                            </div>
-                            <div class="pro-add-cart">
-                                <a href="carrito.hbs" title="Add to Cart">Anadir al Carrito</a>
+                            <div class="pro-content">
+                                <div class="pro-info">
+                                    <h4>
+                                        <a id="nombre">{{nombre}}</a>
+                                    </h4>
+                                    <p>
+                                        <span class="special-price" id="precio_venta">{{precio_venta}}</span>
+                                    </p>
+                                </div>
+                                <div class="pro-add-cart">
+                                    <a href="carrito.hbs" title="Add to Cart">Anadir al Carrito</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {{/each}}
                 </div>
-                {{/each}}
-
             </div>
         </div>
-        <!-- Product Content End -->
     </div>
-    <!-- Single Product End -->
 </div>
-<!-- #list view End -->
-</div>
-<!-- Grid & List Main Area End -->

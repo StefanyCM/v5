@@ -6,8 +6,8 @@
             <ul class=" csidbar-style">
                 {{#each categorias}}
                 <li class="form-check">
-                    <input class="form-check-input" id="{{id_categoria}}" type="checkbox">
-                    <label class="form-check-label" for="{{id_categoria}}">{{nombre}}<label>
+                    <input class="form-check-input-cat" id="{{id_categoria}}" type="checkbox"onclick="filtrearCategoria(this)">
+                    <label class="form-check-label-cat" for="{{id_categoria}}">{{nombre}}<label>
                 </li>
                 {{/each}}
             </ul>
@@ -18,11 +18,23 @@
         <ul class=" csidbar-style">
             {{#each marcas}}
             <li class="form-check">
-                <input class="form-check-input" value="#" id="{{id_marca}}" type="checkbox">
-                <label class="form-check-label" for="{{id_marca}}">{{nombre}}<label>
+                <input class="form-check-input-marca" value="#" id="{{id_marca}}" type="checkbox" onclick="filtrearMarca(this)">
+                <label class="form-check-label-marca" for="{{id_marca}}">{{nombre}}<label>
             </li>
             {{/each}}
         </ul>
         <div id="brands"></div>
     </div>
 </div>
+
+<script>
+
+   function filtrearMarca(e) {
+       window.location.href = `?marca=${e.id}`;
+   }
+   
+   function filtrearCategoria(e) {
+       window.location.href = `?categoria=${e.id}`;
+   }
+
+</script>
