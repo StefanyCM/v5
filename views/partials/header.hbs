@@ -34,7 +34,7 @@
           <div class="col-md-3 col order-2 order-md-3 mb-sm-30">
             <div class="cart-box float-md-right">
               <div class="drodown-show">
-                <a href="#"  onclick="verCarrito()">
+                <a href="#" onclick="verCarrito()">
                   <span id="total-pro" class="total-pro">
                   </span>
                 </a>
@@ -196,22 +196,59 @@
     <div class="modal fade" id="CategoryModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
       <div class="modal-dialog modal-lg" style="width:1250px" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Carrito de compras</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
+          <div class="container">
+            <table id="cart" class="table table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th style="width:50%">Producto</th>
+                  <th style="width:10%">Precio</th>
+                  <th style="width:8%">Cantidad</th>
+                  <th style="width:22%" class="text-center">Subtotal</th>
+
+                </tr>
+              </thead>
+              <tbody id="producList">
+                <tr>
+                  <td data-th="Product">
+                    <div class="row">
+                      <div id="imagen" class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..."
+                          class="img-responsive" /></div>
+                      <div class="col-sm-10">
+                        <h4 id="nombre"></h4>
+                        <p id="descripcion"> Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                          Lorem ipsum dolor sit amet.</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td id="precio" data-th="Precio"></td>
+                  <td id="cantidad" data-th="Precio"></td>
+                  <td data-th="Subtotal" class="text-center"></td>
+              
+                </tr>
+
+              </tbody>
+              <tfoot>
+                <tr class="visible-xs">
+                </tr>
+                <tr>
+                  <td><button type="button" data-dismiss="modal" href="#" class="btn btn-warning"><i
+                        class="fa fa-angle-left"></i> Continuar Comprando</button></td>
+                  <td colspan="2" class="hidden-xs"></td>
+                  <td id="total" class="hidden-xs text-center"><strong></strong></td>
+                  <td><a href="#" onclick="guardar()" class="btn btn-success btn-block">Pagar <i
+                        class="fa fa-angle-right"></i></a></td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
-          <div id="product-list" class="modal-body">
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="cerrar()">Cancelar</button>
-            <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
-          </div>
+
         </div>
       </div>
     </div>
   </header>
+
+
+
   <script>
 
     var totalItems = 0;
@@ -231,16 +268,37 @@
 
     function verCarrito() {
       $("#CategoryModal").modal("show");
+      $('#CategoryModal').on('hidden.bs.modal', function () {
+        document.getElementById("nombre_producto").innerText = "";
+        document.getElementById("descripcion_producto").innerText = "";
+        document.getElementById("precio").innerText = "";
+        document.getElementById("cantidad").innerText = "";
+        document.getElementById("subtotal").innerText = "";
+        document.getElementById("total").innerText = "";
+      });
+
+
+
       for (var i = 0; i <= localStorage.length - 1; i++) {
         var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
-              document.getElementById("product-list").append(`<p>${item.nombre}</p>`)
+
+        document.getElementById("nombre_producto").innerText = item.nombre;
+        document.getElementById("precio").innerText = item.precio_venta;
+        document.getElementById("cantidad").innerText = totalItems;
+        document.getElementById("subtotal").innerText = (item.precio_venta * 0.15) + item.precio_venta;
+        document.getElementById("total").innerText = ((item.precio_venta * 0.15) + item.precio_venta) * totalItems;
+
+
+        document.getElementById("ptroduct-lis").append(`<p>${item.nombre}</p>`)
+
 
       }
+
     }
-    
+
     function guardar() {
 
-      var productos=[];
+      var productos = [];
       for (var i = 0; i <= localStorage.length - 1; i++) {
         var item = JSON.parse(localStorage.getItem(localStorage.key(i)));
         productos.push(item);
@@ -257,6 +315,8 @@
         console.log(err);
       });
     }
+
+
 
 
   </script>
